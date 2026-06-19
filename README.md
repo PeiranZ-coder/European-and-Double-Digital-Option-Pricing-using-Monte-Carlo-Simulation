@@ -1,8 +1,10 @@
-# European-and-Double-Digital-Option-Pricing-using-Monte-Carlo-Simulation
+# European and Double Digital Option Pricing using Monte Carlo Simulation
 
-Implements a flexible option pricing framework in C++ using object-oriented programming principles and Monte Carlo simulation techniques. The framework supports pricing of standard European options (Call and Put) as well as a Double Digital Option under the Black-Scholes model.
+## Overview
 
-The primary objective is to demonstrate the use of inheritance, polymorphism, abstract classes, and payoff abstraction while building a reusable Monte Carlo pricing engine.
+This project implements a flexible option pricing framework in C++ using object-oriented programming principles and Monte Carlo simulation techniques. The framework supports pricing of standard European options (Call and Put) as well as a Double Digital Option under the Black-Scholes framework.
+
+The primary objective is to demonstrate inheritance, polymorphism, abstract classes, and payoff abstraction while building a reusable Monte Carlo pricing engine for derivative pricing.
 
 ---
 
@@ -10,41 +12,45 @@ The primary objective is to demonstrate the use of inheritance, polymorphism, ab
 
 ### European Call Option
 
-The payoff at maturity is:
+The payoff at maturity is
 
-[
-C_T = \max(S_T - K, 0)
-]
+$$
+C_T = \max(S_T - K,0)
+$$
 
 where:
 
-* (S_T) = underlying asset price at maturity
-* (K) = strike price
+* $S_T$ = underlying asset price at maturity
+* $K$ = strike price
+
+---
 
 ### European Put Option
 
-The payoff at maturity is:
+The payoff at maturity is
 
-[
-P_T = \max(K - S_T, 0)
-]
+$$
+P_T = \max(K - S_T,0)
+$$
+
+---
 
 ### Double Digital Option
 
-A Double Digital Option pays:
+A Double Digital Option pays
 
-[
+$$
 D_T =
 \begin{cases}
 1, & K_1 < S_T < K_2 \
 0, & \text{otherwise}
 \end{cases}
-]
+$$
 
 where:
 
-* (K_1) = lower strike
-* (K_2) = upper strike
+* $K_1$ = lower strike
+* $K_2$ = upper strike
 
 ---
 
@@ -52,34 +58,43 @@ where:
 
 The pricing framework consists of the following components:
 
-* `PayOff.h / PayOff.cpp`
+```text
+PayOff.h
+PayOff.cpp
 
-  * Abstract payoff base class
-  * European Call payoff implementation
-  * European Put payoff implementation
+DoubleDigital.h
+DoubleDigital.cpp
 
-* `DoubleDigital.h / DoubleDigital.cpp`
+Random.h
+Random.cpp
 
-  * Double Digital payoff implementation
-  * Double strike parameter handling
+SimpleMC.h
+SimpleMC.cpp
 
-* `Random.h / Random.cpp`
+DDMain.cpp
+```
 
-  * Standard normal random number generation
+### PayOff Module
 
-* `SimpleMC.h / SimpleMC.cpp`
+* Abstract payoff base class
+* European Call payoff implementation
+* European Put payoff implementation
 
-  * Generic Monte Carlo pricing engine
+### DoubleDigital Module
 
-* `DDMain.cpp`
+* Double Digital payoff implementation
+* Dual-strike parameter handling
 
-  * Main program for pricing and testing
+### SimpleMC Module
+
+* Generic Monte Carlo pricing engine
+* Reusable pricing architecture for different payoff structures
 
 ---
 
 ## Object-Oriented Design
 
-The project uses polymorphism to decouple payoff definitions from the pricing engine.
+The project utilizes runtime polymorphism to separate payoff definitions from the pricing engine.
 
 ### Base Class
 
@@ -96,67 +111,70 @@ public:
 * `PayOffPut`
 * `PayOffDoubleDigital`
 
-Each derived class overrides the payoff operator while sharing the same Monte Carlo pricing engine.
+Each derived class overrides the payoff operator while sharing the same Monte Carlo simulation framework.
 
-This design allows new exotic options to be added without modifying the simulation framework.
+This design allows new exotic options to be introduced without modifying the pricing engine.
 
 ---
 
 ## Monte Carlo Pricing Methodology
 
-Under the Black-Scholes assumptions, the terminal asset price is simulated as:
+Under the Black-Scholes assumptions, the terminal asset price is simulated as
 
-[
+$$
 S_T =
 S_0
 \exp
 \left(
 (r-\frac{1}{2}\sigma^2)T
 +
-\sigma \sqrt{T} Z
+\sigma\sqrt{T}Z
 \right)
-]
+$$
 
 where:
 
-* (S_0) = initial asset price
-* (r) = risk-free interest rate
-* (\sigma) = volatility
-* (Z \sim N(0,1))
+* $S_0$ = initial asset price
+* $r$ = risk-free interest rate
+* $\sigma$ = volatility
+* $T$ = time to maturity
+* $Z \sim N(0,1)$
 
-For each simulated path:
+For each simulation path:
 
 1. Generate a standard normal random variable.
 2. Simulate the terminal stock price.
-3. Evaluate the option payoff.
-4. Average all payoffs.
-5. Discount the expected payoff back to present value.
+3. Evaluate the payoff function.
+4. Accumulate the payoff values.
+5. Discount the average payoff back to present value.
 
-The option value is estimated by:
+The Monte Carlo estimator is
 
-[
-V_0 =
+$$
+V_0
+===
+
 e^{-rT}
 \frac{1}{N}
 \sum_{i=1}^{N}
-Payoff_i
-]
+\text{Payoff}_i
+$$
 
 ---
 
 ## Numerical Experiment
 
-### Parameters
+The following market parameters are used:
 
-| Parameter           | Value  |
-| ------------------- | ------ |
-| Maturity (T)        | 1 year |
-| Initial Price (S_0) | 50     |
-| Lower Strike (K_1)  | 43     |
-| Upper Strike (K_2)  | 57     |
-| Strike (K)          | 50     |
-| Volatility (\sigma) | 30%    |
-| Risk-Free Rate (r)  | 5%     |
+| Parameter           | Value |
+| ------------------- | ----- |
+| Maturity $T$        | 1     |
+| Initial Price $S_0$ | 50    |
+| Lower Strike $K_1$  | 43    |
+| Upper Strike $K_2$  | 57    |
+| Strike $K$          | 50    |
+| Volatility $\sigma$ | 0.30  |
+| Risk-Free Rate $r$  | 0.05  |
 
 The Monte Carlo engine is used to price:
 
@@ -170,24 +188,37 @@ under identical market conditions.
 
 ## Key Learning Outcomes
 
-* Applied object-oriented programming concepts in C++
-* Implemented inheritance and runtime polymorphism
-* Built a reusable Monte Carlo pricing framework
-* Simulated Black-Scholes asset dynamics
-* Priced both vanilla and exotic derivatives
-* Established a scalable architecture for future extensions such as:
+* Object-Oriented Programming in C++
+* Abstract Classes and Virtual Functions
+* Runtime Polymorphism
+* Monte Carlo Simulation
+* Black-Scholes Asset Dynamics
+* European Option Pricing
+* Exotic Option Pricing
+* Financial Engineering Software Design
 
-  * Asian Options
-  * Barrier Options
-  * Greeks Estimation
-  * Variance Reduction Techniques
+---
+
+## Possible Extensions
+
+The framework can be extended to support:
+
+* Asian Options
+* Barrier Options
+* American Options
+* Greeks Estimation
+* Variance Reduction Techniques
+* Binomial and Trinomial Trees
+* Multi-Asset Derivatives
 
 ---
 
 ## Technologies
 
 * C++
-* Object-Oriented Programming (OOP)
 * Monte Carlo Simulation
 * Black-Scholes Model
-* Financial Derivatives Pricing
+* Financial Engineering
+* Quantitative Finance
+* Object-Oriented Programming
+
