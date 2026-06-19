@@ -151,13 +151,14 @@ For each simulation path:
 The Monte Carlo estimator is
 
 $$
-V_0
-===
-
+V_0 =
+e^{-rT}
+\mathbb{E}[Payoff]
+\approx
 e^{-rT}
 \frac{1}{N}
 \sum_{i=1}^{N}
-\text{Payoff}_i
+Payoff_i
 $$
 
 ---
