@@ -1,10 +1,6 @@
 # European-and-Double-Digital-Option-Pricing-using-Monte-Carlo-Simulation
 
-# European and Double Digital Option Pricing using Monte Carlo Simulation
-
-## Overview
-
-This project implements a flexible option pricing framework in C++ using object-oriented programming principles and Monte Carlo simulation techniques. The framework supports pricing of standard European options (Call and Put) as well as a Double Digital Option under the Black-Scholes model.
+Implements a flexible option pricing framework in C++ using object-oriented programming principles and Monte Carlo simulation techniques. The framework supports pricing of standard European options (Call and Put) as well as a Double Digital Option under the Black-Scholes model.
 
 The primary objective is to demonstrate the use of inheritance, polymorphism, abstract classes, and payoff abstraction while building a reusable Monte Carlo pricing engine.
 
