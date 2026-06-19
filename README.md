@@ -162,19 +162,6 @@ $$
 
 ---
 
-## Numerical Experiment
-
-The following market parameters are used:
-
-| Parameter           | Value |
-| ------------------- | ----- |
-| Maturity $T$        | 1     |
-| Initial Price $S_0$ | 50    |
-| Lower Strike $K_1$  | 43    |
-| Upper Strike $K_2$  | 57    |
-| Strike $K$          | 50    |
-| Volatility $\sigma$ | 0.30  |
-| Risk-Free Rate $r$  | 0.05  |
 
 The Monte Carlo engine is used to price:
 
@@ -197,21 +184,7 @@ under identical market conditions.
 * Exotic Option Pricing
 * Financial Engineering Software Design
 
----
 
-## Possible Extensions
-
-The framework can be extended to support:
-
-* Asian Options
-* Barrier Options
-* American Options
-* Greeks Estimation
-* Variance Reduction Techniques
-* Binomial and Trinomial Trees
-* Multi-Asset Derivatives
-
----
 
 ## Technologies
 
